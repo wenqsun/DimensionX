@@ -13,16 +13,6 @@ Abstract: *In this paper, we introduce DimensionX, a framework designed to gener
 </p>
 
 
-## Video Demo
-
-https://github.com/user-attachments/assets/c4d3fc5e-fe10-4401-9f20-614ea5cca8c7
-
-https://github.com/user-attachments/assets/589480c4-bce8-4760-acf6-70c709e0681c
-
-https://github.com/user-attachments/assets/f8208acc-750b-458e-ac63-219632a45212
-
-https://github.com/user-attachments/assets/2b231479-b0c5-4b82-909d-3ada2898ddbf
-
 
 
 ## Todo List
