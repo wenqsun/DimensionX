@@ -15,6 +15,7 @@ Abstract: *In this paper, we introduce \textbf{DimensionX}, a framework designed
 
 ## Video Demo
 
+https://github.com/wenqsun/DimensionX/main/assets/videos/360/capybara.mp4
 
 
 ## Todo List
