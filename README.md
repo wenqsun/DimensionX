@@ -27,6 +27,15 @@ Abstract: *In this paper, we introduce DimensionX, a framework designed to gener
 We have released part of our model checkpoint: [S-Diretor](https://drive.google.com/file/d/1zm9G7FH9UmN390NJsVTKmmUdo-3NM5t-/view?usp=drive_link)
 
 ## Inference code
+
+### Diffusers
+
+**Please make sure your Python version is between 3.10 and 3.12, inclusive of both 3.10 and 3.12.**
+
+```
+pip install diffusers
+```
+
 For better result, you'd better use VLM to caption the input image.
 
 ```python
