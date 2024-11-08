@@ -12,7 +12,7 @@ Abstract: *In this paper, we introduce DimensionX, a framework designed to gener
 </p>
 
 ## Todo List
-- [x] Release part of model checkpoints (S-Director).
+- [x] Release part of model checkpoints (S-Director): orbit left.
 - [ ] Release all model checkpoints.
     - [ ] The rest S-Directors
     - [ ] T-Director
@@ -24,7 +24,9 @@ Abstract: *In this paper, we introduce DimensionX, a framework designed to gener
 
 ## Model checkpoint
 
-We have released part of our model checkpoint: [S-Diretor](https://drive.google.com/file/d/1zm9G7FH9UmN390NJsVTKmmUdo-3NM5t-/view?usp=drive_link)
+We have released part of our model checkpoint (orbit left): [S-Diretor](https://drive.google.com/file/d/1zm9G7FH9UmN390NJsVTKmmUdo-3NM5t-/view?usp=drive_link)
+
+We are still refining our model, more camera control checkpoints are coming!
 
 ## Inference code
 
@@ -59,6 +61,7 @@ video = pipe(image, prompt, use_dynamic_cfg=True)
 export_to_video(video.frames[0], "output.mp4", fps=8)
 ```
 
+Using the above inference code and our provided pre-trained checkpoint, you can achieve the orbit left controllable video generation!
 
 
 
