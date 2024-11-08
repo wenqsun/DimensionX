@@ -1,6 +1,6 @@
 # DimensionX: Create Any 3D and 4D Scenes from a Single Image with Controllable Video Diffusion
 
-[**Paper**](https://github.com/wenqsun/DimensionX) | [**Project Page**](https://chenshuo20.github.io/DimensionX/) | [**Video**](https://youtu.be/ViDQI1HMY2U?si=f1RGd82n6yj6TOFB)
+[**Paper**](https://arxiv.org/abs/2411.04928) | [**Project Page**](https://chenshuo20.github.io/DimensionX/) | [**Video**](https://youtu.be/ViDQI1HMY2U?si=f1RGd82n6yj6TOFB)
 
 Official implementation of DimensionX: Create Any 3D and 4D Scenes from a Single Image with Controllable Video Diffusion
 
@@ -30,7 +30,7 @@ Abstract: *In this paper, we introduce DimensionX, a framework designed to gener
 
 We have released part of our model checkpoint: [S-Diretor](https://drive.google.com/file/d/1zm9G7FH9UmN390NJsVTKmmUdo-3NM5t-/view?usp=drive_link)
 
-## Infer code
+## Inference code
 For better result, you'd better use VLM to caption the input image.
 
 ```python
