@@ -10,6 +10,7 @@ Abstract: *In this paper, we introduce DimensionX, a framework designed to gener
 <p align="center">
     <img src="assets/file/teaser.png">
 </p>
+
 ## Todo List
 - [x] Release part of model checkpoints (S-Director).
 - [ ] Release all model checkpoints.
