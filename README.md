@@ -17,7 +17,7 @@ Abstract: *In this paper, we introduce DimensionX, a framework designed to gener
     - [ ] The rest S-Directors
     - [ ] T-Director
     - [ ] Long video generation model (145 frames)
-    - [ ] Video interpolation model
+    - [ ] Video interpolation model (training code + checkpoint)
 - [ ] 3dgs optimization code
 - [ ] Identity-preserving denoising code for 4D generation
 - [ ] Training dataset
