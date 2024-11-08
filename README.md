@@ -26,7 +26,7 @@ Abstract: *In this paper, we introduce DimensionX, a framework designed to gener
 - [ ] Identity-preserving denoising code for 4D generation
 - [ ] Training dataset
 
-## Moel checkpoint
+## Model checkpoint
 
 We have released part of our model checkpoint: [S-Diretor](https://drive.google.com/file/d/1zm9G7FH9UmN390NJsVTKmmUdo-3NM5t-/view?usp=drive_link)
 
