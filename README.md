@@ -73,3 +73,15 @@ Our X Family coming soon ...
 
 
 ## BibTeX
+
+```bibtex
+@misc{sun2024dimensionxcreate3d4d,
+      title={DimensionX: Create Any 3D and 4D Scenes from a Single Image with Controllable Video Diffusion}, 
+      author={Wenqiang Sun and Shuo Chen and Fangfu Liu and Zilong Chen and Yueqi Duan and Jun Zhang and Yikai Wang},
+      year={2024},
+      eprint={2411.04928},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2411.04928}, 
+}
+```
