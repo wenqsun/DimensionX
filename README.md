@@ -24,7 +24,7 @@ Abstract: *In this paper, we introduce DimensionX, a framework designed to gener
 
 ## Model checkpoint
 
-We have released part of our model checkpoint (orbit left): [S-Diretor](https://drive.google.com/file/d/1zm9G7FH9UmN390NJsVTKmmUdo-3NM5t-/view?usp=drive_link)
+We have released part of our model checkpoint (orbit left): [S-Director](https://drive.google.com/file/d/1zm9G7FH9UmN390NJsVTKmmUdo-3NM5t-/view?usp=drive_link)
 
 We are still refining our model, more camera control checkpoints are coming!
 
