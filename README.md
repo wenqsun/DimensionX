@@ -12,7 +12,7 @@ Abstract: *In this paper, we introduce DimensionX, a framework designed to gener
 </p>
 
 ## Todo List
-- [x] Release part of model checkpoints (S-Director): orbit left.
+- [x] Release part of model checkpoints (S-Director): orbit left & orbit up.
 - [ ] Release all model checkpoints.
     - [ ] The rest S-Directors
     - [ ] T-Director
@@ -24,22 +24,28 @@ Abstract: *In this paper, we introduce DimensionX, a framework designed to gener
 
 ## Model checkpoint
 
-We have released part of our model checkpoint (orbit left): [S-Diretor](https://drive.google.com/file/d/1zm9G7FH9UmN390NJsVTKmmUdo-3NM5t-/view?usp=drive_link)
+We have released part of our model checkpoint in Google drive and Huggingface (orbit left & orbit up): [ckpt_drive](https://drive.google.com/drive/folders/1X0tH3JQke1ZIa62jVoZlQWZR38PCi0Eg?usp=sharing) (Google Drive), [ckpt_huggingface](https://huggingface.co/wenqsun/DimensionX) (Huggingface)
 
 We are still refining our model, more camera control checkpoints are coming!
 
 ## Inference code
 
-### Diffusers
+We provide a gradio demo web UI for our model. Thanks to the gradio demo in [CogvideoX](https://github.com/THUDM/CogVideo), we implement our model in `src/gradio_demo/app.py`
 
-**Please make sure your Python version is between 3.10 and 3.12, inclusive of both 3.10 and 3.12.**
+### Installation
 
 ```
-pip install diffusers
+cd src/gradio_demo
+pip install -r requirements.txt 
+```
+run the gradio demo
+```
+OPENAI_API_KEY=your_openai_api_key OPENAI_BASE_URL=your_base_url python app.py
 ```
 
 For better result, you'd better use VLM to caption the input image.
 
+We also provide a script below:
 ```python
 import torch
 from diffusers import CogVideoXImageToVideoPipeline
@@ -61,7 +67,7 @@ video = pipe(image, prompt, use_dynamic_cfg=True)
 export_to_video(video.frames[0], "output.mp4", fps=8)
 ```
 
-Using the above inference code and our provided pre-trained checkpoint, you can achieve the orbit left controllable video generation!
+Using the above inference code and our provided pre-trained checkpoint, you can achieve the controllable video generation!
 
 
 
@@ -73,16 +79,35 @@ Our framework is mainly divided into three parts. (a) Controllable Video Generat
 </p>
 
 
-## Notion
-From ReconX to DimensionX, we are conducting research about X! 
+## Notice
+Due to the conflict of the LoRA conversion and fuse_lora function in diffusers, you may meet the issue below:
 
-Our X Family coming soon ...
+```python
+File "/app/src/video_generator/__init__.py", line 7, in <module>
+    model_genvid = CogVideo(configs)
+                   ^^^^^^^^^^^^^^^^^
+  File "/app/src/video_generator/cog/__init__.py", line 82, in __init__
+    self.pipe.fuse_lora(adapter_names=["orbit_left"], lora_scale=1 / lora_rank)
+  File "/usr/local/lib/python3.11/dist-packages/diffusers/loaders/lora_pipeline.py", line 2888, in fuse_lora
+    super().fuse_lora(
+  File "/usr/local/lib/python3.11/dist-packages/diffusers/loaders/lora_base.py", line 445, in fuse_lora
+    raise ValueError(f"{fuse_component} is not found in {self._lora_loadable_modules=}.")
+ValueError: text_encoder is not found in self._lora_loadable_modules=['transformer'].
+```
+you can solve this error by skipping that part:
+```python
+for fuse_component in components:
+    if fuse_component == 'text_encoder':
+    continue
+```
+
 
 
 ## Acknowledgement
 - [CogVideoX](https://github.com/THUDM/CogVideo)
 - [ReconX](https://github.com/liuff19/ReconX)
 
+From ReconX to DimensionX, we are conducting research about X! Our X Family is coming soon ...
 
 ## BibTeX
 
