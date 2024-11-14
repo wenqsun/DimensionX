@@ -13,9 +13,9 @@ Abstract: *In this paper, we introduce DimensionX, a framework designed to gener
 
 ## Project Updates
 
-- 🔥🔥 News: ```2024/11/15```: Now Hugging Face online demo is available! You can try it [here](https://huggingface.co/spaces/fffiloni/DimensionX). Thanks for [fffiloni](https://huggingface.co/fffiloni) to build it!
+- 🔥🔥 News: ```2024/11/15```: The Hugging Face online demo is now available! You can try it [here](https://huggingface.co/spaces/fffiloni/DimensionX). Thanks to [fffiloni](https://huggingface.co/fffiloni) for building it!
 
-- 🔥🔥 News: ```2024/11/12```: We have released the Orbit Left and Orbit Up S-Director. You can download the model [here](https://huggingface.co/wenqsun/DimensionX).
+- 🔥🔥 News: ```2024/11/12```: We have released the Orbit Left and Orbit Up S-Director models. You can download them [here](https://huggingface.co/wenqsun/DimensionX).
 
 ## Todo List
 - [x] Release part of model checkpoints (S-Director): orbit left & orbit up.
