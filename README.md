@@ -1,6 +1,6 @@
 # DimensionX: Create Any 3D and 4D Scenes from a Single Image with Controllable Video Diffusion
 
-[**Paper**](https://arxiv.org/abs/2411.04928) | [**Project Page**](https://chenshuo20.github.io/DimensionX/) | [**Video**](https://youtu.be/ViDQI1HMY2U?si=f1RGd82n6yj6TOFB)
+[**Paper**](https://arxiv.org/abs/2411.04928) | [**Project Page**](https://chenshuo20.github.io/DimensionX/) | [**Video**](https://youtu.be/ViDQI1HMY2U?si=f1RGd82n6yj6TOFB) | [**🤗 HF Demo**](https://huggingface.co/spaces/fffiloni/DimensionX)
 
 Official implementation of DimensionX: Create Any 3D and 4D Scenes from a Single Image with Controllable Video Diffusion
 
@@ -10,6 +10,12 @@ Abstract: *In this paper, we introduce DimensionX, a framework designed to gener
 <p align="center">
     <img src="assets/file/teaser.png">
 </p>
+
+## Project Updates
+
+- 🔥🔥 News: ```2024/11/15```: Now Hugging Face online demo is available! You can try it [here](https://huggingface.co/spaces/fffiloni/DimensionX). Thanks for [fffiloni](https://huggingface.co/fffiloni) to build it!
+
+- 🔥🔥 News: ```2024/11/12```: We have released the Orbit Left and Orbit Up S-Director. You can download the model [here](https://huggingface.co/wenqsun/DimensionX).
 
 ## Todo List
 - [x] Release part of model checkpoints (S-Director): orbit left & orbit up.
@@ -24,7 +30,7 @@ Abstract: *In this paper, we introduce DimensionX, a framework designed to gener
 
 ## Model checkpoint
 
-We have released part of our model checkpoint in Google drive and Huggingface (orbit left & orbit up): [ckpt_drive](https://drive.google.com/drive/folders/1X0tH3JQke1ZIa62jVoZlQWZR38PCi0Eg?usp=sharing) (Google Drive), [ckpt_huggingface](https://huggingface.co/wenqsun/DimensionX) (Huggingface)
+We have released part of our model checkpoint in Google drive and Huggingface (orbit left & orbit up): [ckpt_drive](https://drive.google.com/drive/folders/1X0tH3JQke1ZIa62jVoZlQWZR38PCi0Eg?usp=sharing) (Google Drive), [ckpt_huggingface](https://huggingface.co/wenqsun/DimensionX) (Huggingface), [ckpt_modelscope](https://modelscope.cn/models/ShuoChen/DimensionX/) (Modelscope)
 
 We are still refining our model, more camera control checkpoints are coming!
 
