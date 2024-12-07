@@ -118,13 +118,10 @@ From ReconX to DimensionX, we are conducting research about X! Our X Family is c
 ## BibTeX
 
 ```bibtex
-@misc{sun2024dimensionxcreate3d4d,
-      title={DimensionX: Create Any 3D and 4D Scenes from a Single Image with Controllable Video Diffusion}, 
-      author={Wenqiang Sun and Shuo Chen and Fangfu Liu and Zilong Chen and Yueqi Duan and Jun Zhang and Yikai Wang},
-      year={2024},
-      eprint={2411.04928},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2411.04928}, 
+@article{sun2024dimensionx,
+  title={DimensionX: Create Any 3D and 4D Scenes from a Single Image with Controllable Video Diffusion},
+  author={Sun, Wenqiang and Chen, Shuo and Liu, Fangfu and Chen, Zilong and Duan, Yueqi and Zhang, Jun and Wang, Yikai},
+  journal={arXiv preprint arXiv:2411.04928},
+  year={2024}
 }
 ```
