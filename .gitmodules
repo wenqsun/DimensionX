@@ -1,0 +1,6 @@
+[submodule "instantsplat/dust3r"]
+	path = instantsplat/dust3r
+	url = https://github.com/cvg/dust3r.git
+[submodule "instantsplat/gaussian-splatting"]
+	path = instantsplat/gaussian-splatting
+	url = https://github.com/graphdeco-inria/gaussian-splatting.git

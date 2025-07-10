@@ -1,6 +1,6 @@
-# DimensionX: Create Any 3D and 4D Scenes from a Single Image with Controllable Video Diffusion
+# DimensionX: Create Any 3D and 4D Scenes from a Single Image with Decoupled Video Diffusion(ICCV2025)
 
-[**Paper**](https://arxiv.org/abs/2411.04928) | [**Project Page**](https://chenshuo20.github.io/DimensionX/) | [**Video**](https://youtu.be/ViDQI1HMY2U?si=f1RGd82n6yj6TOFB) | [**🤗 HF Demo**](https://huggingface.co/spaces/fffiloni/DimensionX)
+[**Paper**](https://arxiv.org/abs/2411.04928) | [**Project Page**](https://chenshuo20.github.io/DimensionX/) | [**Video**](https://youtu.be/ViDQI1HMY2U?si=f1RGd82n6yj6TOFB) | [**🤗 Model Checkpoints**](https://huggingface.co/ShuoChen20/DimensionX_12_basic_camera_lora/tree/main)
 
 Official implementation of DimensionX: Create Any 3D and 4D Scenes from a Single Image with Controllable Video Diffusion
 
@@ -13,45 +13,62 @@ Abstract: *In this paper, we introduce DimensionX, a framework designed to gener
 
 ## Project Updates
 
+- 🔥🔥 News: ```2025/7/10```: All components of our project—including S-Director checkpoints, training pipeline, datasets, 360-degree orbit model, and 3D scene optimization code—have been fully open-sourced and are available for public use.
+
 - 🔥🔥 News: ```2024/11/15```: The Hugging Face online demo is now available! You can try it [here](https://huggingface.co/spaces/fffiloni/DimensionX). Thanks to [fffiloni](https://huggingface.co/fffiloni) for building it!
 
 - 🔥🔥 News: ```2024/11/12```: We have released the Orbit Left and Orbit Up S-Director models. You can download them [here](https://huggingface.co/wenqsun/DimensionX).
 
 ## Todo List
 - [x] Release part of model checkpoints (S-Director): orbit left & orbit up.
-- [ ] Release all model checkpoints.
-    - [ ] The rest S-Directors
-    - [ ] T-Director
-    - [ ] Long video generation model (145 frames)
-    - [ ] Video interpolation model (training code + checkpoint)
-- [ ] 3dgs optimization code
+- [x] Release all model checkpoints.
+    - [x] The rest S-Directors
+    - [x] T-Director
+    - [x] Long video generation model (145 frames)
+    (training code + checkpoint)
+- [x] 3dgs optimization code
+- [x] Training dataset
 - [ ] Identity-preserving denoising code for 4D generation
-- [ ] Training dataset
 
-## Model checkpoint
+## Environment Setup
 
-We have released part of our model checkpoint in Google drive and Huggingface (orbit left & orbit up): [ckpt_drive](https://drive.google.com/drive/folders/1X0tH3JQke1ZIa62jVoZlQWZR38PCi0Eg?usp=sharing) (Google Drive), [ckpt_huggingface](https://huggingface.co/wenqsun/DimensionX) (Huggingface), [ckpt_modelscope](https://modelscope.cn/models/ShuoChen/DimensionX/) (Modelscope)
-
-We are still refining our model, more camera control checkpoints are coming!
-
-## Inference code
-
-We provide a gradio demo web UI for our model. Thanks to the gradio demo in [CogvideoX](https://github.com/THUDM/CogVideo), we implement our model in `src/gradio_demo/app.py`
-
-### Installation
-
+```bash
+conda create -n dimensionx python=3.10 -y
+conda activate dimensionx
+pip install -r cogvideo/requirements.txt 
 ```
-cd src/gradio_demo
-pip install -r requirements.txt 
-```
-run the gradio demo
-```
-OPENAI_API_KEY=your_openai_api_key OPENAI_BASE_URL=your_base_url python app.py
-```
+
+## Any Camera Control Video Generation
+
+### Model checkpoints
+
+<table style="border-collapse: collapse; width: 100%;">
+<tr>
+<th style="text-align: center;">Model Name</th>
+    <th style="text-align: center;">12 Basic Camera Lora</th>
+    <th style="text-align: center;">4 Orbit Lora</th>
+    <th style="text-align: center;">T Director</th>
+</tr>
+<tr>
+    <td style="text-align: center;">Download Link (Diffusers)</td>
+    <td style="text-align: center;"><a href="https://huggingface.co/ShuoChen20/DimensionX_12_basic_camera_lora/tree/main">🤗 HuggingFace</a></td>
+    <td style="text-align: center;"><a href="https://huggingface.co/ShuoChen20/DimensionX_4_orbit_camera_lora/tree/main">🤗 HuggingFace</a></td>
+    <td style="text-align: center;"><a href="https://huggingface.co/ShuoChen20/DimensionX_T_director_lora/tree/main">🤗 HuggingFace</a></td>
+</tr>
+
+</table>
+
+
+We provide 12 fundamental camera LoRA modules, each corresponding to one of the six degrees of freedom (DoF) in camera motion. For each DoF—covering both translation and rotation—both positive and negative directions are modeled, resulting in a total of 12 distinct motion patterns.
+In addition, we offer 4 orbit-style LoRA modules that represent orbital camera movements in the upward, downward, leftward, and rightward directions.
+
+We also provide the T-Director checkpoint. All checkpoints are implemented as Diffuser LoRA modules. You can download them via the link above and perform inference using the script below—just replace the LoRA path and module name as needed.
+
+
+### Inference 
 
 For better result, you'd better use VLM to caption the input image.
 
-We also provide a script below:
 ```python
 import torch
 from diffusers import CogVideoXImageToVideoPipeline
@@ -60,7 +77,7 @@ from diffusers.utils import export_to_video, load_image
 pipe = CogVideoXImageToVideoPipeline.from_pretrained("THUDM/CogVideoX-5b-I2V", torch_dtype=torch.bfloat16)
 lora_path = "your lora path"
 lora_rank = 256
-pipe.load_lora_weights(lora_path, weight_name="pytorch_lora_weights.safetensors", adapter_name="test_1")
+pipe.load_lora_weights(lora_path, weight_name="pytorch_lora_weights.safetensors", adapter_name="test")
 pipe.fuse_lora(lora_scale=1 / lora_rank)
 pipe.to("cuda")
 
@@ -75,6 +92,74 @@ export_to_video(video.frames[0], "output.mp4", fps=8)
 
 Using the above inference code and our provided pre-trained checkpoint, you can achieve the controllable video generation!
 
+We also provide a gradio demo web UI for our model. Thanks to the gradio demo in [CogvideoX](https://github.com/THUDM/CogVideo), we implement our model in `src/gradio_demo/app.py`
+
+### Training
+
+#### Training Preparation
+
+Step1. Download our dataset from the provided \[link].
+
+Step2. Download the base model checkpoint.
+
+Download the **CogVideoX-5B-I2V-sat** checkpoint by following the instructions in the [official guide](https://github.com/THUDM/CogVideo/blob/main/sat/README.md).
+We use the [CogVideoX-5B-I2V](https://cloud.tsinghua.edu.cn/d/5cc62a2d6e7d45c0a2f6/?p=%2F1&mode=list) model as the base model for our training.
+Alternatively, you may experiment with other models such as **CogVideoX1.5**, [**HunyuanVideo**](https://github.com/Tencent-Hunyuan/HunyuanVideo-I2V), or [**WanX**](https://github.com/Wan-Video/Wan2.1).
+
+Step3. Modify training configurations
+1. Update the **T5 model path** and **VAE model path** in `configs/cogvideox_5b_i2v_lora.yaml`.
+   Detailed instructions can be found in the [SAT configuration guide](https://github.com/THUDM/CogVideo/blob/main/sat/README.md).
+
+2. Modify `configs/sft_scene.yaml` to set up your training experiment:
+
+   * Update the `transformer_path` to the base model directory
+   * Set `train_data` and `valid_data` to your dataset paths
+   * Specify the `caption_dir` containing text annotations
+
+
+
+#### Run training
+
+Then, start training using the following command:
+
+```bash
+cd cogvideo
+bash finetune_multi_gpus.sh
+```
+
+**After training, you can run `inference.sh` to generate sample results.**
+Make sure to modify the inference configuration file `inference.yaml` as needed.
+
+If you would like to convert the training checkpoint into the **Diffuser LoRA** format, please refer to [this script](https://github.com/THUDM/CogVideo/blob/main/tools/convert_weight_sat2hf.py) for the conversion process.
+
+## Single View 3D Generation (360 Degree Orbit)
+
+## Inference
+
+### Download checkpoint
+**Model checkpoint:** [🤗 Hugging Face](https://huggingface.co/ShuoChen20/DimensionX_360orbit/tree/main)
+To use the model, modify the checkpoint loading path in `inference_145.yaml` accordingly.
+
+
+### 145 frame video generation
+
+```bash
+cd cogvideo
+bash inference_lowR.sh
+```
+
+For improved visual quality, you can apply [Real-ESRGAN](https://github.com/xinntao/Real-ESRGAN) for super-resolution and use [RIFE](https://github.com/hzwer/ECCV2022-RIFE) for video frame interpolation.
+
+
+## 3D Scene Optimization
+
+We use generated video to reconstruct 3D scene using duster3r and gaussian splatting optimization.
+
+### Environment Setup
+
+### Dust3R inference
+
+### Gaussian Splatting Optimization
 
 
 ## Method
