@@ -118,10 +118,10 @@ From ReconX to DimensionX, we are conducting research about X! Our X Family is c
 ## BibTeX
 
 ```bibtex
-@article{sun2024dimensionx,
+@inproceedings{sun2024dimensionx,
   title={DimensionX: Create Any 3D and 4D Scenes from a Single Image with Controllable Video Diffusion},
   author={Sun, Wenqiang and Chen, Shuo and Liu, Fangfu and Chen, Zilong and Duan, Yueqi and Zhang, Jun and Wang, Yikai},
-  journal={arXiv preprint arXiv:2411.04928},
-  year={2024}
+  booktitle={International Conference on Computer Vision (ICCV)},
+  year={2025}
 }
 ```
