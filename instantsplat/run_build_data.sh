@@ -16,14 +16,13 @@ while [[ "$#" -gt 0 ]]; do
     shift
 done
 
-# 从数据集中copy训练和测试图片
 source copy.sh --scene_type $scene_type --scene_name $scene_name
 
 
 echo "----------------extract frames from video----------------"
-# 从生成的视频中抽帧
+
 python script/extract_frame.py --video_type $video_type --scene_type $scene_type --scene_name $scene_name --frame_interval $frame_interval
 
 echo "----------------copy data----------------"
-# 将抽帧的数据和测试数据并到一起
+
 python script/copy_data.py --video_type $video_type --scene_type $scene_type --scene_name $scene_name --frame_interval $frame_interval

@@ -2,7 +2,6 @@
 export CUDA_VISIBLE_DEVICES=1
 
 video_path='/pfs/mt-1oY5F7/chenshuo/good_cases/web_case/360/capybara.mp4'
-# 定义参数
 method=ours_360
 scene_type="360_new"
 scene_name="capybara"
@@ -15,7 +14,6 @@ train_dataset_suffix="_train"
 model_path_suffix="_train/output_30000_lpips_"
 source_path_suffix="_test"
 
-# 解析命令行参数
 while [[ "$#" -gt 0 ]]; do
     case $1 in
         --method) method="$2"; shift ;;
@@ -23,7 +21,7 @@ while [[ "$#" -gt 0 ]]; do
         --scene_name) scene_name="$2"; shift ;;
         --val_length) val_length="$2"; shift ;;
         --lambda_lpips) lambda_lpips="$2"; shift ;;
-        --use_confidence) use_confidence=true ;;  # 解析 --use_confidence 参数
+        --use_confidence) use_confidence=true ;; 
         *) echo "Unknown parameter passed: $1"; exit 1 ;;
     esac
     shift
@@ -44,7 +42,6 @@ python get_frame.py $video_path $dataset_path 40
 
 # python downsample.py $dataset_path
 
-# 执行第一个命令
 python dust3r_inference.py --dataset "$dataset"
 
 # copy the 'data/scene/{$dataset}' to 'data/scene/{$dataset}_train' and 'data/scene/{$dataset}_test'
@@ -57,20 +54,16 @@ cp -r "data/scenes/$dataset/." "data/scenes/${dataset}_test"
 python script/modify_data.py --dataset $dataset
 
 
-# 检查上一个命令是否成功执行
 if [ $? -eq 0 ]; then
     echo "dust3r_inference.py completed successfully"
-    # 执行第二个命令
     python 3dgs.py --dataset "$train_dataset" --lambda_lpips $lambda_lpips --iter 30000 --use_confidence
 
     if [ $? -eq 0 ]; then
         echo "3dgs.py completed successfully"
-        # 执行第三个命令
         python render.py --model_path data/scenes/"$model_path" --source_path data/scenes/"$source_path"
 
         if [ $? -eq 0 ]; then
             echo "render.py completed successfully"
-            # 执行第四个命令
             # python metrics.py -m data/scenes/"$model_path"
         else
             echo "render.py failed"
