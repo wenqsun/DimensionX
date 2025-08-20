@@ -203,6 +203,8 @@ mkdir -p dust3r/checkpoints/
 wget https://download.europe.naverlabs.com/ComputerVision/DUSt3R/DUSt3R_ViTLarge_BaseDecoder_512_dpt.pth -P dust3r/checkpoints
 ```
 
+2. Create the environment
+
 ```bash
 conda create -n instantsplat python=3.10.13 cmake=3.14.0 -y
 conda activate instantsplat
