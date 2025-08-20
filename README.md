@@ -2,7 +2,7 @@
 
 [**Paper**](https://arxiv.org/abs/2411.04928) | [**Project Page**](https://chenshuo20.github.io/DimensionX/) | [**Video**](https://youtu.be/ViDQI1HMY2U?si=f1RGd82n6yj6TOFB) | [**🤗 Model Checkpoints**](https://huggingface.co/ShuoChen20/DimensionX_12_basic_camera_lora/tree/main)
 
-Official implementation of DimensionX: Create Any 3D and 4D Scenes from a Single Image with Controllable Video Diffusion
+Official implementation of DimensionX: Create Any 3D and 4D Scenes from a Single Image with Decoupled Video Diffusion
 
 [Wenqiang Sun*](https://github.com/wenqsun), [Shuo Chen*](https://chenshuo20.github.io/), [Fangfu Liu*](https://liuff19.github.io/), [Zilong Chen](https://scholar.google.com/citations?user=2pbka1gAAAAJ), [Yueqi Duan](https://duanyueqi.github.io/), [Jun Zhang](https://eejzhang.people.ust.hk/), [Yikai Wang](https://yikaiw.github.io/)
 
@@ -13,7 +13,7 @@ Abstract: *In this paper, we introduce DimensionX, a framework designed to gener
 
 ## Project Updates
 
-- 🔥🔥 News: ```2025/7/10```: All components of our project—including S-Director checkpoints, training pipeline, datasets, 360-degree orbit model, and 3D scene optimization code—have been fully open-sourced and are available for public use.
+- 🔥🔥 News: ```2025/8/20```: All components of our project—including S-Director checkpoints, training pipeline, datasets, 360-degree orbit model, and 3D scene optimization code—have been fully open-sourced and are available for public use.
 
 - 🔥🔥 News: ```2024/11/15```: The Hugging Face online demo is now available! You can try it [here](https://huggingface.co/spaces/fffiloni/DimensionX). Thanks to [fffiloni](https://huggingface.co/fffiloni) for building it!
 
@@ -166,7 +166,7 @@ cd cogvideo
 bash inference_lowR.sh
 ```
 
-On a single NVIDIA A6000 GPU, the model utilizes approximately 30.52 GB of VRAM and has an execution time of roughly 6 minutes.
+On a single NVIDIA A6000 GPU, the model generates a 145-frame, 18-second, 360-degree orbit video in approximately 6 minutes, utilizing about 30.52 GB of VRAM.
 
 For improved visual quality, you can apply [Real-ESRGAN](https://github.com/xinntao/Real-ESRGAN) for super-resolution and use [RIFE](https://github.com/hzwer/ECCV2022-RIFE) for video frame interpolation.
 
@@ -192,6 +192,8 @@ For improved visual quality, you can apply [Real-ESRGAN](https://github.com/xinn
 We use generated video to reconstruct 3D scene using duster3r and gaussian splatting optimization.
 
 ### Environment Setup
+
+
 
 ### Dust3R inference
 
@@ -236,7 +238,9 @@ for fuse_component in components:
 
 From ReconX to DimensionX, we are conducting research about X! Our X Family is coming soon ...
 
-## BibTeX
+## Citation
+
+If you find this codebase useful for your research, please kindly cite our paper:
 
 ```bibtex
 @article{sun2024dimensionx,
