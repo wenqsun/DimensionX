@@ -89,6 +89,7 @@ venv.bak/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+/__pycache__/
 
 # PyCharm
 .idea/
