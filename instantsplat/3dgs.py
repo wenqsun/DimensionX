@@ -140,26 +140,15 @@ class TrainingArgs:
     start_checkpoint: str = None
 
 def images_to_video_cv2(image_folder, output_video, frame_rate=30):
-    """
-    使用cv2将文件夹中的图片无损转换为视频
-
-    Args:
-    - image_folder: 图片文件夹路径
-    - output_video: 输出视频文件路径
-    - frame_rate: 视频帧率
-    """
-    # 获取图片文件列表，并确保按文件名排序
     images = sorted([img for img in os.listdir(image_folder) if img.endswith(".png")])
     
     if not images:
-        raise ValueError("图片文件夹中没有找到任何图片文件。")
+        raise ValueError("No File")
     
-    # 获取图片的尺寸
     first_image_path = os.path.join(image_folder, images[0])
     img = cv2.imread(first_image_path)
     height, width, layers = img.shape
 
-    # 定义视频编码器和创建 VideoWriter 对象
     fourcc = cv2.VideoWriter_fourcc(*'XVID')
     video = cv2.VideoWriter(output_video, fourcc, frame_rate, (width, height))
 
@@ -183,9 +172,6 @@ def images_to_video_media(image_folder, output_video, frame_rate=30):
     media.write_video(output_video, images, fps=frame_rate)
 
 
-
-
-# 焦距转换为视场角
 def focal2fov(focal_length, dimension_size):
     return 2 * np.arctan(dimension_size / (2 * focal_length))
 
@@ -199,7 +185,6 @@ def json_to_camera_info(camera_json):
     fy = camera_json['fy']
     fx = camera_json['fx']
     
-    # 将相机位置和旋转矩阵转换回R和T
     W2C = np.eye(4)
     W2C[:3, :3] = rot
     W2C[:3, 3] = pos
@@ -207,7 +192,6 @@ def json_to_camera_info(camera_json):
     R = C2W[:3, :3].transpose()
     T = C2W[:3, 3]
 
-    # 计算视场角
     FovY = focal2fov(fy, height)
     FovX = focal2fov(fx, width)
 

@@ -8,7 +8,7 @@ scene_type="test_case"
 scene_name="kitchen"
 val_length=12
 lambda_lpips=0.3
-use_confidence=true  # 默认为 false
+use_confidence=true  
 
 # dataset_suffix="_all"
 train_dataset_suffix="_train"
