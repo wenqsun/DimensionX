@@ -3,7 +3,7 @@ args:
   latent_channels: 16
   mode: inference
   # load: "/pfs/mt-1oY5F7/chenshuo/CogVideo/CogVideoX-5B-I2V-sat/transformer/" # This is for Full model without lora adapter
-  load: "ckpts_5b_lora/lora-camera-scene-360-145-real10k-10-14-17-02/" # This is for Full model without lora adapter
+  load: "/home/chenshuo/DimensionX_code/checkpoints/" # This is for Full model without lora adapter
   batch_size: 1
   input_type: txt
   input_file: configs/test_i2v.txt

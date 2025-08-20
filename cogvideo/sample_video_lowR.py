@@ -12,9 +12,9 @@ import numpy as np
 from einops import rearrange
 import torchvision.transforms as TT
 
-from sageattention import sageattn
+# from sageattention import sageattn
 import torch.nn.functional as F
-F.scaled_dot_product_attention = sageattn
+# F.scaled_dot_product_attention = sageattn
 
 from sat.model.base_model import get_model
 from sat.training.model_io import load_checkpoint

@@ -1,4 +1,4 @@
-# DimensionX: Create Any 3D and 4D Scenes from a Single Image with Decoupled Video Diffusion(ICCV2025)
+# DimensionX: Create Any 3D and 4D Scenes from a Single Image with Decoupled Video Diffusion (ICCV2025)
 
 [**Paper**](https://arxiv.org/abs/2411.04928) | [**Project Page**](https://chenshuo20.github.io/DimensionX/) | [**Video**](https://youtu.be/ViDQI1HMY2U?si=f1RGd82n6yj6TOFB) | [**🤗 Model Checkpoints**](https://huggingface.co/ShuoChen20/DimensionX_12_basic_camera_lora/tree/main)
 
@@ -33,9 +33,10 @@ Abstract: *In this paper, we introduce DimensionX, a framework designed to gener
 ## Environment Setup
 
 ```bash
-conda create -n dimensionx python=3.10 -y
+conda create --name dimensionx python=3.10 -y
 conda activate dimensionx
-pip install -r cogvideo/requirements.txt 
+conda install pytorch torchvision torchaudio pytorch-cuda=12.1 cuda -c pytorch  -c "nvidia/label/cuda-12.1.0" -c "nvidia/label/cuda-12.1.1"
+pip install -r cogvideo/requirements.txt
 ```
 
 ## Any Camera Control Video Generation
@@ -67,30 +68,13 @@ We also provide the T-Director checkpoint. All checkpoints are implemented as Di
 
 ### Inference 
 
-For better result, you'd better use VLM to caption the input image.
+For better result, you'd better use VLM to caption the input image. On a single NVIDIA A100/A800 GPU, inference with the LoRA model takes approximately 3 minutes and consumes 26.33 GB of GPU memory to generate a 6-second, 48-frame video.
 
-```python
-import torch
-from diffusers import CogVideoXImageToVideoPipeline
-from diffusers.utils import export_to_video, load_image
-
-pipe = CogVideoXImageToVideoPipeline.from_pretrained("THUDM/CogVideoX-5b-I2V", torch_dtype=torch.bfloat16)
-lora_path = "your lora path"
-lora_rank = 256
-pipe.load_lora_weights(lora_path, weight_name="pytorch_lora_weights.safetensors", adapter_name="test")
-pipe.fuse_lora(lora_scale=1 / lora_rank)
-pipe.to("cuda")
-
-
-prompt = "An astronaut hatching from an egg, on the surface of the moon, the darkness and depth of space realised in the background. High quality, ultrarealistic detail and breath-taking movie-like camera shot."
-image = load_image(
-    "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/astronaut.jpg"
-)
-video = pipe(image, prompt, use_dynamic_cfg=True)
-export_to_video(video.frames[0], "output.mp4", fps=8)
+```bash
+python inference.py --lora_path ./your_lora_path.safetensors
 ```
 
-Using the above inference code and our provided pre-trained checkpoint, you can achieve the controllable video generation!
+Using the above inference command, you can achieve the controllable video generation!
 
 We also provide a gradio demo web UI for our model. Thanks to the gradio demo in [CogvideoX](https://github.com/THUDM/CogVideo), we implement our model in `src/gradio_demo/app.py`
 
@@ -103,12 +87,29 @@ Step1. Download our dataset from the provided \[link].
 Step2. Download the base model checkpoint.
 
 Download the **CogVideoX-5B-I2V-sat** checkpoint by following the instructions in the [official guide](https://github.com/THUDM/CogVideo/blob/main/sat/README.md).
-We use the [CogVideoX-5B-I2V](https://cloud.tsinghua.edu.cn/d/5cc62a2d6e7d45c0a2f6/?p=%2F1&mode=list) model as the base model for our training.
+Our codebase use the [CogVideoX-5B-I2V](https://cloud.tsinghua.edu.cn/d/5cc62a2d6e7d45c0a2f6/?p=%2F1&mode=list) model as the base model for training.
 Alternatively, you may experiment with other models such as **CogVideoX1.5**, [**HunyuanVideo**](https://github.com/Tencent-Hunyuan/HunyuanVideo-I2V), or [**WanX**](https://github.com/Wan-Video/Wan2.1).
 
 Step3. Modify training configurations
 1. Update the **T5 model path** and **VAE model path** in `configs/cogvideox_5b_i2v_lora.yaml`.
-   Detailed instructions can be found in the [SAT configuration guide](https://github.com/THUDM/CogVideo/blob/main/sat/README.md).
+   Detailed instructions can be found in the [SAT configuration guide](https://github.com/THUDM/CogVideo/blob/main/sat/README.md). Or you can following the command below:
+
+   ```bash
+   # Download vae
+    mkdir CogVideoX-2b-sat
+    cd CogVideoX-2b-sat
+    wget https://cloud.tsinghua.edu.cn/f/fdba7608a49c463ba754/?dl=1
+    mv 'index.html?dl=1' vae.zip
+    unzip vae.zip
+    # Download t5
+    git lfs install
+    git clone https://huggingface.co/THUDM/CogVideoX-2b.git # Download model from Huggingface
+    # git clone https://www.modelscope.cn/ZhipuAI/CogVideoX-2b.git # Download from Modelscope
+    mkdir t5-v1_1-xxl
+    mv CogVideoX-2b/text_encoder/* CogVideoX-2b/tokenizer/* t5-v1_1-xxl
+   ```
+
+
 
 2. Modify `configs/sft_scene.yaml` to set up your training experiment:
 
@@ -137,9 +138,26 @@ If you would like to convert the training checkpoint into the **Diffuser LoRA** 
 ## Inference
 
 ### Download checkpoint
-**Model checkpoint:** [🤗 Hugging Face](https://huggingface.co/ShuoChen20/DimensionX_360orbit/tree/main)
-To use the model, modify the checkpoint loading path in `inference_145.yaml` accordingly.
+**Model checkpoint:** [🤗 Hugging Face](https://huggingface.co/ShuoChen20/DimensionX_360orbit/tree/main). Download the model use following command:
 
+```bash
+mkdir checkpoints
+mkdir checkpoints/1
+huggingface-cli download ShuoChen20/DimensionX_360orbit mp_rank_00_model_states.pt --local-dir ./checkpoints/1
+huggingface-cli download ShuoChen20/DimensionX_360orbit latest --local-dir ./checkpoints
+```
+
+To use the model, first download the T5 and VAE models and above checkpoint. Then, update the corresponding checkpoint paths for the **main model**, the **T5 model**, and the **VAE model** in the `inference_145.yaml` and `configs/cogvideox_5b_i2v_lora_145.yaml `configuration files.
+
+Arrange the model files in the following structure:
+
+```
+.
+checkpoints
+   ├── 1
+   │   └── mp_rank_00_model_states.pt
+   └── latest
+```
 
 ### 145 frame video generation
 
@@ -148,8 +166,26 @@ cd cogvideo
 bash inference_lowR.sh
 ```
 
+On a single NVIDIA A6000 GPU, the model utilizes approximately 30.52 GB of VRAM and has an execution time of roughly 6 minutes.
+
 For improved visual quality, you can apply [Real-ESRGAN](https://github.com/xinntao/Real-ESRGAN) for super-resolution and use [RIFE](https://github.com/hzwer/ECCV2022-RIFE) for video frame interpolation.
 
+<table border="0" style="width: 100%; text-align: left; margin-top: 20px;">
+  <tr>
+      <td>
+          <video src="https://github.com/user-attachments/assets/a41cc3ec-47cf-4045-8f5c-60f2385c4774" width="100%" controls autoplay loop></video>
+      </td>
+      <td>
+          <video src="https://github.com/user-attachments/assets/9925df57-e575-4da8-b22f-64257b494313" width="100%" controls autoplay loop></video>
+      </td>
+       <td>
+          <video src="https://github.com/user-attachments/assets/589f2c69-0423-4782-8558-2edc1ae4f02f" width="100%" controls autoplay loop></video>
+     </td>
+      <td>
+          <video src="https://github.com/user-attachments/assets/bcafa005-a1ab-4204-8bc4-60b7b093f973" width="100%" controls autoplay loop></video>
+     </td>
+  </tr>
+</table>
 
 ## 3D Scene Optimization
 

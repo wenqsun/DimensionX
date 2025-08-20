@@ -14,3 +14,5 @@ scipy==1.14.0
 decord==0.6.0
 wandb==0.17.5
 deepspeed==0.14.4
+diffusers>=0.31.0
+peft==0.17.0

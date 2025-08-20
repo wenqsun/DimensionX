@@ -84,14 +84,14 @@ model:
             ucg_rate: 0.1
             target: sgm.modules.encoders.modules.FrozenT5Embedder
             params:
-              model_dir: "CogVideo/CogVideoX-5B-I2V-sat/t5-v1_1-xxl"
+              model_dir: "/home/chenshuo/DimensionX_code/CogVideoX-2b-sat/t5-v1_1-xxl" # absolute path to t5-v1_1-xxl weight folder
               max_length: 226
 
   first_stage_config:
     target: vae_modules.autoencoder.VideoAutoencoderInferenceWrapper
     params:
       cp_size: 1
-      ckpt_path: "CogVideo/CogVideoX-5B-I2V-sat/vae/3d-vae.pt"
+      ckpt_path: "/home/chenshuo/DimensionX_code/CogVideoX-2b-sat/vae/3d-vae.pt" # absolute path to CogVideoX-2b-sat/vae/3d-vae.pt file
       ignore_keys: [ 'loss' ]
 
       loss_config:
