@@ -21,7 +21,7 @@ parser.add_argument(
     help="The text prompt to guide the video generation."
 )
 parser.add_argument(
-    "--image_url",
+    "--image_path",
     type=str,
     default="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/astronaut.jpg",
     help="URL of the input image."
@@ -49,7 +49,7 @@ pipe.to("cuda")
 
 # Use the prompt and image from the command-line arguments
 prompt = args.prompt
-image = load_image(args.image_url)
+image = load_image(args.image_path)
 
 # Run the inference process
 print("Generating video...")
