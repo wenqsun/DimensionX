@@ -77,7 +77,7 @@ python inference.py --lora_path ./your_lora_path.safetensors --image_path your_i
 Here is an examlpe:
 
 ```bash
-python inference.py --lora_path ./pan_right_30_lora_weights.safetensors --image_path ./assets/file/mammoth.png --prompt "Several giant wooly mammoths approach treading through a snowy meadow, their long wooly fur lightly blows in the wind as they walk, snow covered trees and dramatic snow capped mountains in the distance, mid afternoon light with wispy clouds and a sun high in the distance creates a warm glow, the low camera view is stunning capturing the large furry mammal with beautiful photography, depth of field."
+python inference.py --lora_path ./orbit_up_45_lora_weights.safetensors --image_path ./assets/file/mammoth.png --prompt "Several giant wooly mammoths approach treading through a snowy meadow, their long wooly fur lightly blows in the wind as they walk, snow covered trees and dramatic snow capped mountains in the distance, mid afternoon light with wispy clouds and a sun high in the distance creates a warm glow, the low camera view is stunning capturing the large furry mammal with beautiful photography, depth of field."
 ```
 
 Using the above inference command, you can achieve the controllable video generation!
