@@ -13,7 +13,7 @@ Abstract: *In this paper, we introduce DimensionX, a framework designed to gener
 
 ## Project Updates
 
-- 🔥🔥 News: ```2025/8/20```: All components of our project—including S-Director checkpoints, training pipeline, datasets, 360-degree orbit model, and 3D scene optimization code—have been fully open-sourced and are available for public use.
+- 🔥🔥 News: ```2025/10/15```: All components of our project—including S-Director checkpoints, training pipeline, datasets, 360-degree orbit model, and 3D scene optimization code—have been fully open-sourced and are available for public use.
 
 - 🔥🔥 News: ```2024/11/15```: The Hugging Face online demo is now available! You can try it [here](https://huggingface.co/spaces/fffiloni/DimensionX). Thanks to [fffiloni](https://huggingface.co/fffiloni) for building it!
 
@@ -88,7 +88,7 @@ We also provide a gradio demo web UI for our model. Thanks to the gradio demo in
 
 #### Training Preparation
 
-Step1. Download our dataset from the provided \[link].
+Step1. Download our dataset from the provided [link](https://huggingface.co/datasets/wenqsun/DimensionX_Video). This dataset includes 360-degree orbit videos and is suitable for training a 360-degree orbit LoRA. We recommend training the 360-degree orbit LoRA on the 145-frame videos. For other types of camera movement LoRA, we recommend you render a corresponding dataset.
 
 Step2. Download the base model checkpoint.
 
